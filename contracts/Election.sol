@@ -14,10 +14,11 @@ contract Election {
     //store the candidates
     mapping(uint => Candidate) public candidates;
     //store candidates count
-    //use a counter cash to determine the numer of candidates in the mapping
+    //use a counter cash to determine the number of candidates in the mapping
     uint public candidatesCount;
     
     function addCandidate (string _name) private {
+        //increment candidate count
         candidatesCount ++;
         candidates[candidatesCount] = Candidate (candidatesCount,_name, 0);
     }
