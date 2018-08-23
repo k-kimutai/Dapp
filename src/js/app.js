@@ -9,7 +9,7 @@ App = {
 
   initWeb3: function(){
     if(typeof web3!=='undefined'){
-      App.web3Provider=current.web3Provider;
+      App.web3Provider=web3.currentProvider;
       web3=new Web3(web3.currentProvider);
     }else{
       //specify default instance if no provider is present
@@ -20,7 +20,7 @@ App = {
   },
 
   initContract: function(){
-    $.getJson("Election.json", function(election){
+    $.getJSON("Election.json", function(election){
       App.contracts.Election=TruffleContract(election);
       App.contracts.Election.setProvider(App.web3Provider);
 
@@ -43,11 +43,11 @@ App = {
     });
 
     //load contract data
-    App.contracts.Election.deployed.then(function(instance){
+    App.contracts.Election.deployed().then(function(instance){
       electionInstance=instance;
       return electionInstance.candidatesCount();
   }).then(function(candidatesCount){
-    var candidatesResults=$("#candidatesResults");
+    var candidatesResults=$("#candidateResults");
     candidatesResults.empty();
 
     for(var i=1; i<=candidatesCount ; i++){
