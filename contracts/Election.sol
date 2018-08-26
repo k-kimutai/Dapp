@@ -19,6 +19,10 @@ contract Election {
     //use a counter cash to determine the number of candidates in the mapping
     uint public candidatesCount;
 
+    //event
+    event votedEvent(
+        uint indexed _candidateId  
+    );
     
     function addCandidate (string _name) private {
         //increment candidate count
@@ -38,5 +42,9 @@ contract Election {
         voters[msg.sender] = true;
         //update candidate vote count
         candidates[_candidateId].votecount++;
+
+        //trigger event
+        votedEvent(_candidateId);
+  
     }
 } 
